@@ -1,2 +1,2 @@
-# Portfolio
-My portfolio made using Html,Css and js
+# Resume_project
+resume using html css
