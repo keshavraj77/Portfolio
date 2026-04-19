@@ -81,7 +81,112 @@
     .hero-content {
       position: relative; z-index: 1; text-align: center;
       padding: 0 20px;
+      opacity: 0;
+      transform: translateY(24px);
     }
+
+    /* ── LOADING SCREEN ── */
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 22px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loading-profile-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin-bottom: 8px;
+    }
+    .loading-ring {
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      border: 4px solid transparent;
+      border-top-color: var(--indigo);
+      border-right-color: var(--cyan);
+      border-bottom-color: var(--purple);
+      animation: loading-spin 1.2s linear infinite;
+    }
+    .loading-ring-2 {
+      position: absolute;
+      inset: -22px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: rgba(99,102,241,0.3);
+      border-left-color: rgba(6,182,212,0.3);
+      animation: loading-spin 2s linear infinite reverse;
+    }
+    @keyframes loading-spin { 100% { transform: rotate(360deg); } }
+    .loading-profile {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid rgba(99,102,241,0.15);
+      box-shadow:
+        0 0 50px rgba(99,102,241,0.5),
+        0 0 100px rgba(99,102,241,0.15),
+        inset 0 0 20px rgba(99,102,241,0.1);
+      animation: loading-pulse 2s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes loading-pulse {
+      0%,100% { box-shadow: 0 0 50px rgba(99,102,241,0.5), 0 0 100px rgba(99,102,241,0.15); }
+      50%  { box-shadow: 0 0 70px rgba(6,182,212,0.6),  0 0 120px rgba(6,182,212,0.2);  }
+    }
+    .loading-profile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .loading-name {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 0%, var(--indigo) 50%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: loading-fadein 0.6s ease both;
+    }
+    .loading-role {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: loading-fadein 0.8s ease both;
+    }
+    @keyframes loading-fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .loading-bar {
+      width: 200px;
+      height: 3px;
+      background: rgba(99,102,241,0.15);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .loading-progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--indigo), var(--cyan));
+      border-radius: 100px;
+      animation: loading-bar-fill 1.8s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    @keyframes loading-bar-fill { 0% { width: 0%; } 60% { width: 75%; } 100% { width: 100%; } }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(99,102,241,0.1); border: 1px solid var(--border);
@@ -91,6 +196,122 @@
     }
     .hero-badge span { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.8);} }
+
+    /* ── HERO PROFILE PHOTO ── */
+    .hero-profile {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      position: relative;
+      margin: 0 auto 28px auto;
+      overflow: hidden;
+      border: 3px solid rgba(99,102,241,0.4);
+      box-shadow: 0 0 50px rgba(99,102,241,0.5);
+      transition: transform 0.07s ease-out;
+      will-change: transform;
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+    .hero-profile::before {
+      content: '';
+      position: absolute;
+      inset: -60%;
+      background: conic-gradient(from 0deg, var(--indigo), var(--cyan), var(--purple), var(--pink), var(--indigo));
+      animation: spin-ring 3s linear infinite;
+      z-index: 0;
+    }
+    @keyframes spin-ring { to { transform: rotate(360deg); } }
+    .hero-profile::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      background: var(--bg);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .hero-profile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      position: relative;
+      z-index: 2;
+      border-radius: 50%;
+      display: block;
+    }
+
+    /* ── FLOATING AVATAR ── */
+    .floating-avatar {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(99,102,241,0.5);
+      box-shadow: 0 0 28px rgba(99,102,241,0.5), 0 4px 20px rgba(0,0,0,0.5);
+      z-index: 9999;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, box-shadow 0.3s ease;
+      will-change: transform;
+      transform-style: preserve-3d;
+      perspective: 600px;
+    }
+    .floating-avatar.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .floating-avatar:hover {
+      box-shadow: 0 0 44px rgba(99,102,241,0.8), 0 6px 28px rgba(0,0,0,0.5);
+    }
+    .floating-avatar::before {
+      content: '';
+      position: absolute;
+      inset: -60%;
+      background: conic-gradient(from 0deg, var(--indigo), var(--cyan), var(--purple), var(--pink), var(--indigo));
+      animation: spin-ring 3s linear infinite;
+      z-index: 0;
+    }
+    .floating-avatar::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      background: var(--bg);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .floating-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      position: relative;
+      z-index: 2;
+      border-radius: 50%;
+      display: block;
+    }
+    .floating-avatar-tip {
+      position: absolute;
+      right: 72px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(8,12,30,0.95);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      backdrop-filter: blur(12px);
+    }
+    .floating-avatar:hover .floating-avatar-tip { opacity: 1; }
 
     .hero-name {
       font-size: clamp(3rem, 8vw, 6rem);
@@ -486,6 +707,22 @@
 </head>
 <body>
 
+<!-- ── LOADING SCREEN ── -->
+<div class="loading-screen" id="loading-screen">
+  <div class="loading-profile-container">
+    <div class="loading-ring-2"></div>
+    <div class="loading-ring"></div>
+    <div class="loading-profile">
+      <img src="profile.jpeg" alt="Keshav Raj">
+    </div>
+  </div>
+  <div class="loading-name">Keshav Raj</div>
+  <div class="loading-role">Software Engineer</div>
+  <div class="loading-bar">
+    <div class="loading-progress"></div>
+  </div>
+</div>
+
 <!-- ══ NAV ══ -->
 <nav>
   <div class="nav-logo">KR</div>
@@ -517,6 +754,9 @@
 <section id="hero">
   <canvas id="bg-canvas"></canvas>
   <div class="hero-content">
+    <div class="hero-profile" id="hero-profile">
+      <img src="profile.jpeg" alt="Keshav Raj">
+    </div>
     <div class="hero-badge"><span></span> Available for new opportunities</div>
     <h1 class="hero-name">Keshav Raj</h1>
     <p class="hero-typewriter">
@@ -540,6 +780,12 @@
     <i class="fas fa-chevron-down"></i>
   </div>
 </section>
+
+<!-- ── FLOATING AVATAR (always visible after hero) ── -->
+<div class="floating-avatar" id="floating-avatar">
+  <img src="profile.jpeg" alt="Keshav Raj">
+  <div class="floating-avatar-tip">↑ Back to top</div>
+</div>
 
 <!-- ══ ABOUT ══ -->
 <section id="about">
@@ -1066,6 +1312,65 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 
 <script>
+// ── LOADING SCREEN DISMISS ──
+window.addEventListener('load', () => {
+  // Animate progress bar, then fade out after 2s
+  setTimeout(() => {
+    const ls = document.getElementById('loading-screen');
+    if (ls) {
+      ls.classList.add('hidden');
+      setTimeout(() => { ls.style.display = 'none'; }, 650);
+    }
+    // Reveal hero content
+    if (typeof gsap !== 'undefined') {
+      gsap.to('.hero-content', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.1 });
+    } else {
+      const hc = document.querySelector('.hero-content');
+      if (hc) { hc.style.opacity = '1'; hc.style.transform = 'none'; }
+    }
+  }, 2000);
+});
+
+// ── PROFILE PHOTO CURSOR-TRACKING 3D TILT ──
+// Both hero photo and floating avatar tilt toward cursor from anywhere on page
+const heroProfileEl = document.getElementById('hero-profile');
+const floatingAvatarEl = document.getElementById('floating-avatar');
+
+function applyTilt(el, cx, cy, maxDeg, strength) {
+  if (!el) return;
+  const r = el.getBoundingClientRect();
+  const nx = (cx - (r.left + r.width / 2)) / (window.innerWidth / 2);
+  const ny = (cy - (r.top + r.height / 2)) / (window.innerHeight / 2);
+  const ry = Math.max(-maxDeg, Math.min(maxDeg, nx * maxDeg * strength));
+  const rx = Math.max(-maxDeg, Math.min(maxDeg, -ny * maxDeg * strength));
+  el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.06,1.06,1.06)`;
+}
+
+function resetTilt(el) {
+  if (el) el.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+}
+
+document.addEventListener('mousemove', (e) => {
+  applyTilt(heroProfileEl, e.clientX, e.clientY, 25, 1.3);
+  applyTilt(floatingAvatarEl, e.clientX, e.clientY, 20, 1.1);
+});
+document.addEventListener('mouseleave', () => {
+  resetTilt(heroProfileEl);
+  resetTilt(floatingAvatarEl);
+});
+
+// ── FLOATING AVATAR: show when hero scrolls out, click to scroll back up ──
+const heroSectionEl = document.getElementById('hero');
+new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    floatingAvatarEl.classList.toggle('visible', !e.isIntersecting);
+  });
+}, { threshold: 0.15 }).observe(heroSectionEl);
+
+floatingAvatarEl.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
 // ── SKILLS DATA ──
 const skills = [
   { name:'Python', cat:'languages' }, { name:'Go', cat:'languages' },
