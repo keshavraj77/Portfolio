@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keshav Raj — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #050a1a;
+      --surface: rgba(15, 23, 42, 0.7);
+      --surface2: rgba(20, 30, 60, 0.6);
+      --border: rgba(99, 102, 241, 0.18);
+      --border2: rgba(6, 182, 212, 0.15);
+      --indigo: #6366f1;
+      --cyan: #06b6d4;
+      --purple: #a855f7;
+      --pink: #ec4899;
+      --green: #10b981;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --card-glow: 0 0 40px rgba(99,102,241,0.08), 0 8px 32px rgba(0,0,0,0.4);
+      --card-glow-hover: 0 0 60px rgba(99,102,241,0.2), 0 8px 40px rgba(0,0,0,0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--indigo); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(5, 10, 26, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .nav-logo {
+      font-size: 1.1rem; font-weight: 800; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.3px; transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--indigo); transform: scaleX(0);
+      transition: transform 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #bg-canvas {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero-content {
+      position: relative; z-index: 1; text-align: center;
+      padding: 0 20px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(99,102,241,0.1); border: 1px solid var(--border);
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 0.78rem; color: var(--indigo); font-weight: 600;
+      margin-bottom: 24px; letter-spacing: 0.5px;
+    }
+    .hero-badge span { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.8);} }
+
+    .hero-name {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900; line-height: 1;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, #fff 0%, var(--indigo) 50%, var(--cyan) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+    }
+    .hero-typewriter {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--muted); font-weight: 400; margin-bottom: 12px;
+      min-height: 2rem;
+    }
+    #typewriter-text { color: var(--cyan); font-weight: 600; }
+    .cursor { animation: blink 1s infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+    .hero-sub {
+      font-size: 1rem; color: var(--muted); max-width: 520px;
+      margin: 0 auto 36px; line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 14px 32px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+      background: linear-gradient(135deg, var(--indigo), var(--purple));
+      color: #fff; border: none; cursor: pointer; text-decoration: none;
+      transition: all 0.3s; box-shadow: 0 0 30px rgba(99,102,241,0.3);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(99,102,241,0.5); }
+    .btn-secondary {
+      padding: 14px 32px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border); cursor: pointer; text-decoration: none;
+      transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+
+    .scroll-indicator {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 0.75rem; letter-spacing: 1px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(8px);} }
+
+    /* ── SHARED SECTION STYLES ── */
+    section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 12px;
+    }
+    .section-label::before { content:''; display:block; width:24px; height:1px; background:var(--cyan); }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
+      letter-spacing: -1px; line-height: 1.1; margin-bottom: 48px;
+    }
+    .section-title span {
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .glass-card {
+      background: var(--surface); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 20px;
+      box-shadow: var(--card-glow); transition: all 0.3s;
+    }
+    .glass-card:hover { box-shadow: var(--card-glow-hover); border-color: rgba(99,102,241,0.35); }
+
+    /* ── ABOUT ── */
+    #about { padding-top: 120px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .about-card {
+      padding: 40px; border-radius: 24px;
+      background: var(--surface); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); box-shadow: var(--card-glow);
+    }
+    .about-greeting { font-size: 0.85rem; color: var(--cyan); font-weight: 600; margin-bottom: 12px; letter-spacing: 1px; }
+    .about-text { color: #94a3b8; line-height: 1.8; font-size: 0.95rem; }
+    .about-text p { margin-bottom: 16px; }
+    .about-text strong { color: var(--text); }
+    .about-links { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+    .about-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); font-size: 0.82rem; text-decoration: none;
+      padding: 6px 14px; border-radius: 100px;
+      border: 1px solid var(--border); transition: all 0.2s;
+    }
+    .about-link:hover { color: var(--cyan); border-color: var(--cyan); }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stat-card {
+      padding: 28px 24px; border-radius: 20px;
+      background: var(--surface2); border: 1px solid var(--border);
+      text-align: center; transition: all 0.3s;
+    }
+    .stat-card:hover { border-color: var(--indigo); transform: translateY(-4px); box-shadow: 0 0 30px rgba(99,102,241,0.15); }
+    .stat-number {
+      font-size: 2.2rem; font-weight: 900; line-height: 1;
+      background: linear-gradient(135deg, var(--indigo), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; line-height: 1.4; }
+
+    /* ── EXPERIENCE ── */
+    #experience { max-width: 1200px; }
+    .exp-header-row {
+      display: flex; align-items: center; gap: 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 28px 32px; margin-bottom: 32px;
+    }
+    .exp-company-logo {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: linear-gradient(135deg, #1f2937, #374151);
+      border: 1px solid var(--border); display: flex; align-items: center;
+      justify-content: center; font-weight: 800; font-size: 1rem; color: #60a5fa;
+      flex-shrink: 0; letter-spacing: -1px;
+    }
+    .exp-meta h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
+    .exp-meta p { color: var(--muted); font-size: 0.85rem; }
+    .exp-meta .exp-tags { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+    .tag {
+      padding: 3px 10px; border-radius: 100px; font-size: 0.72rem;
+      font-weight: 600; letter-spacing: 0.3px;
+    }
+    .tag-indigo { background: rgba(99,102,241,0.12); color: var(--indigo); border: 1px solid rgba(99,102,241,0.2); }
+    .tag-cyan { background: rgba(6,182,212,0.1); color: var(--cyan); border: 1px solid rgba(6,182,212,0.2); }
+    .tag-purple { background: rgba(168,85,247,0.1); color: var(--purple); border: 1px solid rgba(168,85,247,0.2); }
+    .tag-green { background: rgba(16,185,129,0.1); color: var(--green); border: 1px solid rgba(16,185,129,0.2); }
+    .tag-pink { background: rgba(236,72,153,0.1); color: var(--pink); border: 1px solid rgba(236,72,153,0.2); }
+
+    .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .work-card {
+      padding: 28px; border-radius: 18px;
+      background: var(--surface); border: 1px solid var(--border);
+      box-shadow: var(--card-glow); transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .work-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--indigo), var(--cyan));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .work-card:hover::before { opacity: 1; }
+    .work-card:hover { transform: translateY(-4px); box-shadow: var(--card-glow-hover); border-color: rgba(99,102,241,0.3); }
+    .work-icon {
+      width: 44px; height: 44px; border-radius: 12px; margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .work-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .work-desc { font-size: 0.82rem; color: #64748b; line-height: 1.65; }
+    .work-metric {
+      margin-top: 12px; font-size: 0.78rem; font-weight: 700;
+      color: var(--cyan); display: flex; align-items: center; gap: 6px;
+    }
+
+    /* ── SKILLS ── */
+    .skills-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+    .skill-tab {
+      padding: 8px 18px; border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+      border: 1px solid var(--border); background: transparent; color: var(--muted);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .skill-tab.active, .skill-tab:hover {
+      background: rgba(99,102,241,0.15); border-color: var(--indigo); color: var(--indigo);
+    }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 10px; min-height: 120px; }
+    .skill-chip {
+      padding: 8px 16px; border-radius: 10px; font-size: 0.82rem; font-weight: 500;
+      background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+      transition: all 0.25s; cursor: default;
+      animation: chipIn 0.3s ease both;
+    }
+    @keyframes chipIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
+    .skill-chip:hover { border-color: var(--indigo); color: var(--indigo); background: rgba(99,102,241,0.08); transform: translateY(-2px); }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+    .flip-container { perspective: 1200px; height: 420px; }
+    .flip-card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.4,0,0.2,1); cursor: pointer; }
+    .flip-container:hover .flip-card, .flip-container.flipped .flip-card { transform: rotateY(180deg); }
+    .flip-front, .flip-back {
+      position: absolute; width: 100%; height: 100%;
+      backface-visibility: hidden; border-radius: 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      box-shadow: var(--card-glow); overflow: hidden;
+    }
+    .flip-back { transform: rotateY(180deg); padding: 28px; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; }
+    .proj-header {
+      height: 120px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .proj-header-icon { font-size: 2.5rem; z-index: 1; }
+    .proj-header::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 0%, var(--surface) 100%);
+    }
+    .proj-body { padding: 20px 24px; }
+    .proj-name { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .proj-short { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin-bottom: 14px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .flip-back-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+    .flip-back-desc { font-size: 0.8rem; color: #94a3b8; line-height: 1.65; flex: 1; }
+    .flip-back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--cyan); font-size: 0.8rem; font-weight: 600;
+      text-decoration: none; margin-top: 16px;
+      transition: gap 0.2s;
+    }
+    .flip-back-link:hover { gap: 10px; }
+    .proj-github-front {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 12px; font-size: 0.75rem; font-weight: 600;
+      color: var(--cyan); text-decoration: none;
+      background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.2);
+      border-radius: 6px; padding: 4px 10px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .proj-github-front:hover { background: rgba(6,182,212,0.16); border-color: rgba(6,182,212,0.4); }
+    .flip-hint { font-size: 0.72rem; color: var(--muted); text-align: center; margin-top: 12px; }
+
+    /* ── EDUCATION & ACHIEVEMENTS ── */
+    .edu-ach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .edu-cards { display: flex; flex-direction: column; gap: 12px; }
+    .edu-card {
+      padding: 20px 24px; border-radius: 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; gap: 16px; align-items: flex-start; transition: all 0.2s;
+    }
+    .edu-card:hover { border-color: var(--indigo); transform: translateX(4px); }
+    .edu-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .edu-deg { font-size: 0.92rem; font-weight: 700; margin-bottom: 3px; }
+    .edu-school { font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; }
+    .edu-score { font-size: 0.78rem; color: var(--cyan); font-weight: 600; }
+    .ach-cards { display: flex; flex-direction: column; gap: 12px; }
+    .ach-card {
+      padding: 18px 22px; border-radius: 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; gap: 14px; align-items: center; transition: all 0.2s;
+    }
+    .ach-card:hover { border-color: var(--indigo); transform: translateX(4px); }
+    .ach-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .ach-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
+    .ach-desc { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+    .contact-card {
+      max-width: 640px; margin: 0 auto; padding: 56px 48px; border-radius: 28px;
+      background: var(--surface); border: 1px solid var(--border);
+      box-shadow: 0 0 80px rgba(99,102,241,0.1);
+    }
+    .contact-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 36px; }
+    .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 24px; border-radius: 14px;
+      border: 1px solid var(--border); background: var(--surface2);
+      color: var(--text); text-decoration: none; font-size: 0.88rem; font-weight: 500;
+      transition: all 0.25s;
+    }
+    .contact-link:hover { border-color: var(--indigo); color: var(--indigo); transform: translateY(-3px); box-shadow: 0 0 30px rgba(99,102,241,0.15); }
+    .contact-link i { font-size: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 32px; color: var(--muted);
+      font-size: 0.78rem; border-top: 1px solid var(--border);
+    }
+
+    /* ── FADE IN ── */
+    .fade-up { opacity: 0; transform: translateY(30px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .about-grid, .work-grid, .edu-ach-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .contact-card { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">KR</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <canvas id="bg-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge"><span></span> Available for new opportunities</div>
+    <h1 class="hero-name">Keshav Raj</h1>
+    <p class="hero-typewriter">
+      <span id="typewriter-text"></span><span class="cursor">|</span>
+    </p>
+    <p class="hero-sub">
+      Building the infrastructure that makes AI agents communicate, reason, and scale —
+      across IBM Cloud, AWS, and on-premises enterprise deployments.
+    </p>
+    <div class="hero-btns">
+      <a href="https://drive.google.com/file/d/1Pf3JUB5W4T70X8rWZjBB1urMW4dgZzok/view?usp=sharing" class="btn-primary" target="_blank" rel="noopener">
+        <i class="fas fa-download"></i> Download Resume
+      </a>
+      <a href="#contact" class="btn-secondary">
+        <i class="fas fa-envelope"></i> Get in Touch
+      </a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>SCROLL</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-card" data-tilt data-tilt-max="8" data-tilt-glare data-tilt-max-glare="0.1">
+      <p class="about-greeting">HEY THERE 👋</p>
+      <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:20px;letter-spacing:-0.5px;">
+        I build things that make<br><span style="background:linear-gradient(135deg,#6366f1,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AI agents work.</span>
+      </h2>
+      <div class="about-text">
+        <p>
+          I'm a Software Engineer at <strong>IBM</strong>, working on the core infrastructure
+          of an enterprise AI-agent orchestration platform. My day-to-day is designing and
+          implementing the systems that let agents communicate, reason, delegate work,
+          and stay grounded — across multi-cloud and on-premises deployments.
+        </p>
+        <p>
+          Before IBM, I was the <strong>college topper in Information Technology</strong>
+          at CUSAT. Outside work, I build personal agent projects — from a
+          full visual multi-agent workflow builder to an A2A-compliant interview prep agent.
+        </p>
+      </div>
+      <div class="about-links">
+        <a href="mailto:keshavrajpc@gmail.com" class="about-link"><i class="fas fa-envelope"></i> keshavrajpc@gmail.com</a>
+        <a href="https://github.com/keshavraj77" target="_blank" class="about-link"><i class="fab fa-github"></i> keshavraj77</a>
+        <a href="https://www.linkedin.com/in/keshav-raj-107673222/" target="_blank" class="about-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card" data-tilt data-tilt-max="12">
+        <div class="stat-number" data-target="82">0</div>
+        <div class="stat-label">% reduction in<br>system prompt tokens</div>
+      </div>
+      <div class="stat-card" data-tilt data-tilt-max="12">
+        <div class="stat-number" data-target="9.65" data-decimal>0</div>
+        <div class="stat-label">GPA — College<br>Topper in IT</div>
+      </div>
+      <div class="stat-card" data-tilt data-tilt-max="12">
+        <div class="stat-number" data-suffix="M+">0</div>
+        <div class="stat-label" data-target="10" data-suffix="M+">Records migrated<br>across data centers</div>
+      </div>
+      <div class="stat-card" data-tilt data-tilt-max="12">
+        <div class="stat-number" data-target="75">0</div>
+        <div class="stat-label">% container image<br>size reduction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience">
+  <div class="section-label">Career</div>
+  <h2 class="section-title">Work <span>Experience</span></h2>
+
+  <div class="exp-header-row glass-card">
+    <div class="exp-company-logo">IBM</div>
+    <div class="exp-meta" style="flex:1;">
+      <h3>Software Engineer — AI Agent Platform</h3>
+      <p>July 2024 – Present &nbsp;·&nbsp; Bangalore, India</p>
+      <div class="exp-tags">
+        <span class="tag tag-indigo">SaaS</span>
+        <span class="tag tag-cyan">IBM Cloud</span>
+        <span class="tag tag-purple">AWS</span>
+        <span class="tag tag-green">On-Premises</span>
+      </div>
+    </div>
+    <div style="text-align:right;flex-shrink:0;">
+      <div style="font-size:0.75rem;color:var(--muted);">Deployment</div>
+      <div style="font-size:0.85rem;font-weight:600;color:var(--text);margin-top:2px;">Enterprise Scale</div>
+    </div>
+  </div>
+
+  <div class="work-grid">
+
+    <div class="work-card fade-up">
+      <div class="work-icon" style="background:rgba(99,102,241,0.12);">⚡</div>
+      <div class="work-title">LangGraph Multi-Agent Orchestration Engine</div>
+      <div class="work-desc">
+        Spearheaded the design and implementation of a LangGraph-based agent orchestration pattern where agents
+        reason and select tools in a single inference step — no separate planning phase. The engine manages
+        <strong style="color:var(--text);">isolated virtual conversation threads</strong> between a root agent and each of its collaborators,
+        so their contexts never bleed into each other regardless of how many agents are in the graph.
+        The graph supports <strong style="color:var(--text);">three agent types in a single unified flow</strong>: native agents (standard ReAct),
+        external A2A agents (calling remote agent servers), and flow-based agents (sub-workflows).
+        The engine auto-selects the correct execution path based on the model in use —
+        different inference providers require different tool-calling conventions, and the graph handles
+        that transparently so the calling code never needs to know which backend it's talking to.
+      </div>
+      <div class="work-metric"><i class="fas fa-code-branch"></i> LangGraph · Groq · Bedrock · Cerebras · vLLM · Python asyncio</div>
+    </div>
+
+    <div class="work-card fade-up">
+      <div class="work-icon" style="background:rgba(168,85,247,0.12);">🧠</div>
+      <div class="work-title">Progressive-Disclosure Skill Execution System</div>
+      <div class="work-desc">
+        Agents were hallucinating and picking the wrong tools because their prompts carried the full context
+        of every possible task at once — too much noise for the model to stay focused.
+        The fix: a <strong style="color:var(--text);">progressive-disclosure architecture</strong> where a compact skill catalog sits in the
+        system prompt for intent classification, and only the selected skill's full instructions and tools
+        are injected on-demand. Two loading modes were built:
+        <strong style="color:var(--text);">Inline mode</strong> — the skill is injected directly into the current turn's context window;
+        <strong style="color:var(--text);">Fork mode</strong> — the skill runs inside an isolated sub-graph so it can't affect the root agent's state.
+        The system shipped end-to-end: a CLI (<code style="font-family:'JetBrains Mono',monospace;font-size:0.8em;">skills import / update / list / export / upload-script</code>),
+        an object-storage-backed script loader (MinIO / IBM COS), and the runtime injection engine inside the orchestration graph.
+        Result: <strong style="color:var(--cyan);">82% smaller base system prompts</strong>, <strong style="color:var(--cyan);">56% less context per turn</strong>, and a measurable drop in tool-selection hallucinations.
+      </div>
+      <div class="work-metric">
+        <i class="fas fa-chart-line"></i> 82% smaller base prompts · 56% less per-turn context · CLI + Object Storage
+      </div>
+    </div>
+
+    <div class="work-card fade-up">
+      <div class="work-icon" style="background:rgba(6,182,212,0.12);">🔗</div>
+      <div class="work-title">A2A Protocol — Client &amp; Server Implementations</div>
+      <div class="work-desc">
+        Implemented both sides of the Agent-to-Agent (A2A) open protocol — the standard that lets AI agents
+        built on different frameworks communicate with each other.
+        <br><br>
+        <strong style="color:var(--text);">Client (our platform calls external agents):</strong> Built a LangGraph→A2A JSON-RPC adapter
+        with multi-turn correlation tracking so a single conversation can span multiple A2A round trips.
+        Async push-notification callbacks land over <strong style="color:var(--text);">Redis Streams</strong> so external agents can
+        push updates without the client polling. A <strong style="color:var(--text);">3-tier task-state classifier</strong>
+        (deterministic rules → heuristic pattern matching → LLM fallback) minimises latency on the critical path
+        by only escalating to the LLM when rules can't resolve the state.
+        <br><br>
+        <strong style="color:var(--text);">Server (external systems call our agents):</strong> Exposed
+        <code style="font-family:'JetBrains Mono',monospace;font-size:0.8em;">message/send</code>,
+        <code style="font-family:'JetBrains Mono',monospace;font-size:0.8em;">message/stream</code>,
+        <code style="font-family:'JetBrains Mono',monospace;font-size:0.8em;">tasks/get / list / cancel</code> JSON-RPC endpoints
+        with lazy task creation, <strong style="color:var(--text);">deterministic SHA-256 artifact IDs</strong> for retry-safe
+        idempotency, and dual-signal cancellation (local file marker + Redis pub/sub) that propagates
+        across all pods in under 1 ms.
+      </div>
+      <div class="work-metric"><i class="fas fa-bolt"></i> Dual-signal cancellation &lt;1ms across pods · Redis Streams · SHA-256 artifact IDs</div>
+    </div>
+
+    <div class="work-card fade-up">
+      <div class="work-icon" style="background:rgba(16,185,129,0.12);">🚀</div>
+      <div class="work-title">Agent Gateway Microservice (Go)</div>
+      <div class="work-desc">
+        Implemented a standalone Go (Gin) microservice that acts as the single entry point for all external
+        agent communication. Its core role is <strong style="color:var(--text);">protocol translation</strong>: it speaks
+        A2A JSON-RPC to the outside world and the platform's internal chat format on the inside —
+        so neither the external caller nor the internal agent needs to know about the other's protocol.
+        <br><br>
+        Built to handle both <strong style="color:var(--text);">SSE streaming</strong> (real-time token-by-token responses for callers
+        that support it) and synchronous request-response modes. Push-notification forwarding runs
+        over <strong style="color:var(--text);">Redis Streams</strong> so external systems receive async callbacks when long-running
+        tasks complete. Auth is JWT-based with support for both HMAC (HS256) and RSA (RS256) signing,
+        covering the key-management requirements of both SaaS and on-premises deployments.
+        Packaged as a Docker container and deployed across SaaS, IBM Cloud, and on-premises environments.
+      </div>
+      <div class="work-metric"><i class="fas fa-server"></i> Go · Gin · Redis Streams · SSE · JWT (HMAC / RS256) · Docker</div>
+    </div>
+
+    <div class="work-card fade-up">
+      <div class="work-icon" style="background:rgba(236,72,153,0.12);">🗄️</div>
+      <div class="work-title">MongoDB → PostgreSQL Migration — Millions of Records, Multiple Data Centers</div>
+      <div class="work-desc">
+        Led the migration of the entire document and chunk store from MongoDB to PostgreSQL across multiple
+        data centers with no issues reported post-migration.
+        <br><br>
+        The hardest part wasn't volume — it was <strong style="color:var(--text);">character encoding incompatibility</strong>.
+        MongoDB permitted character sequences and byte patterns that PostgreSQL outright rejects at the driver level —
+        years of production data had accumulated edge cases that would silently fail or corrupt on import.
+        Built a <strong style="color:var(--text);">multi-stage sanitisation pipeline</strong>: encoding detection (charset-normalizer),
+        Unicode normalisation (NFC), and targeted character replacement, handling every edge case reliably
+        at high throughput without data loss.
+        <br><br>
+        On the performance side: <strong style="color:var(--text);">asyncpg</strong> with 6,000-row batch inserts,
+        Python <strong style="color:var(--text);">multiprocessing</strong> for parallelism across data centers,
+        <strong style="color:var(--text);">IBM COS (boto3)</strong> for intermediate artifact storage,
+        and <strong style="color:var(--text);">exponential-backoff retry</strong> for transient failures —
+        making the pipeline resumable and safe to re-run at any point.
+      </div>
+      <div class="work-metric"><i class="fas fa-database"></i> asyncpg · 6K rows/batch · multiprocessing · IBM COS · exponential-backoff retry</div>
+    </div>
+
+    <div class="work-card fade-up">
+      <div class="work-icon" style="background:rgba(251,191,36,0.12);">🛡️</div>
+      <div class="work-title">Plugin Framework, Infrastructure &amp; Data Systems</div>
+      <div class="work-desc">
+        Several cross-cutting platform improvements shipped across different areas:
+        <br><br>
+        <strong style="color:var(--text);">Plugin Hook System:</strong> Worked on a pre/post-invoke plugin framework that lets
+        RBAC enforcement, PII masking, and audit logging attach to agent invocations without touching any
+        core agent code. Each plugin fires on a defined hook point and can short-circuit execution if needed.
+        <br><br>
+        <strong style="color:var(--text);">Container Optimisation:</strong> Reduced the production Docker image from
+        <strong style="color:var(--cyan);">6 GB → 1.5 GB (75% reduction)</strong> via multi-stage builds and systematic
+        dependency pruning — removing dev tools, test frameworks, and transitive packages that had no place in
+        a production image.
+        <br><br>
+        <strong style="color:var(--text);">Multi-Tenant DB Architecture:</strong> Implemented per-tenant isolated database provisioning
+        driven by Kafka events — when a new tenant is onboarded, the event triggers automatic schema creation and
+        seeding without manual intervention.
+        <br><br>
+        <strong style="color:var(--text);">Cron-Based Data Retention:</strong> Built scheduled jobs that purge conversation records older
+        than 30 days, keeping storage costs predictable at scale.
+        <br><br>
+        <strong style="color:var(--text);">Long-Term Memory (LTM) Layer:</strong> Built a PostgreSQL JSON abstraction that preserves
+        existing NoSQL-style query semantics while gaining SQL indexing and ACID guarantees — so agents could
+        retain cross-session memory without a schema rewrite.
+      </div>
+      <div class="work-metric"><i class="fas fa-compress-arrows-alt"></i> 6 GB → 1.5 GB container · Kafka · Cron · LTM · Multi-tenant DB</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills">
+  <div class="section-label">Tech Stack</div>
+  <h2 class="section-title">Skills &amp; <span>Technologies</span></h2>
+
+  <div class="skills-tabs">
+    <button class="skill-tab active" data-cat="all">All</button>
+    <button class="skill-tab" data-cat="languages">Languages</button>
+    <button class="skill-tab" data-cat="ai">AI & Agents</button>
+    <button class="skill-tab" data-cat="backend">Backend</button>
+    <button class="skill-tab" data-cat="databases">Databases</button>
+    <button class="skill-tab" data-cat="cloud">Cloud & Infra</button>
+    <button class="skill-tab" data-cat="frontend">Frontend</button>
+  </div>
+
+  <div class="skill-chips" id="skill-chips">
+    <!-- injected by JS -->
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects">
+  <div class="section-label">Personal Work</div>
+  <h2 class="section-title">Side <span>Projects</span></h2>
+  <p style="color:var(--muted);margin-top:-32px;margin-bottom:36px;font-size:0.9rem;">Hover a card to flip it for full details. GitHub links are on the front and back.</p>
+
+  <div class="projects-grid">
+
+    <div class="flip-container">
+      <div class="flip-card">
+        <div class="flip-front">
+          <div class="proj-header" style="background:linear-gradient(135deg,#1e1b4b,#312e81);">
+            <div class="proj-header-icon">🤖</div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-name">AgentComm</div>
+            <div class="proj-short">Visual multi-agent orchestration desktop platform with workflow builder, MCP integration and A2A protocol support.</div>
+            <div class="proj-tags">
+              <span class="tag tag-indigo">Python</span>
+              <span class="tag tag-cyan">LangGraph</span>
+              <span class="tag tag-purple">A2A</span>
+              <span class="tag tag-green">MCP</span>
+            </div>
+            <a href="https://github.com/keshavraj77/AgentComm" target="_blank" class="proj-github-front">
+              <i class="fab fa-github"></i> keshavraj77/AgentComm
+            </a>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div>
+            <div class="flip-back-title">AgentComm — Multi-Agent Orchestration Platform</div>
+            <div class="flip-back-desc">
+              A full desktop platform (PyQt6) for building and running multi-agent AI workflows visually.
+              <br><br>
+              <strong>Visual Workflow Builder (Swarm Pattern):</strong> Canvas-based drag-and-drop editor
+              (n8n-style) where users create agent workflows as graphs — nodes are A2A agents or LLMs,
+              edges define data flow. Users can set up swarm-style patterns where multiple agents operate
+              on a shared task. LangGraph StateGraph executes the graph with automatic parallel detection:
+              nodes sharing a source run concurrently via <code>asyncio.gather()</code>; others chain sequentially.
+              SQLite checkpointing enables mid-execution recovery if the workflow is interrupted.
+              <br><br>
+              <strong>MCP Server Integration:</strong> Full Model Context Protocol support over both
+              stdio (local subprocess tools) and SSE (remote tool servers) transports. Tools are discovered
+              at runtime and converted to provider-native formats — OpenAI <code>tool_calls</code>,
+              Anthropic Claude <code>tool_use</code>, Gemini <code>function_call</code> — so any connected LLM
+              can call external tools without format-specific code.
+              <br><br>
+              <strong>Multi-LLM + A2A:</strong> Supports OpenAI, Gemini, Claude, and Ollama in the same
+              workflow. A2A client with SSE streaming, async push-notification webhooks (FastAPI + ngrok
+              tunnelling), and multi-turn correlation tracking.
+            </div>
+          </div>
+          <a href="https://github.com/keshavraj77/AgentComm" target="_blank" class="flip-back-link">
+            <i class="fab fa-github"></i> View on GitHub <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-container">
+      <div class="flip-card">
+        <div class="flip-front">
+          <div class="proj-header" style="background:linear-gradient(135deg,#064e3b,#065f46);">
+            <div class="proj-header-icon">🎯</div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-name">Interview Prep Agent</div>
+            <div class="proj-short">A2A-compliant multi-turn AI agent that builds personalised interview preparation plans using Gemini 2.0 Flash.</div>
+            <div class="proj-tags">
+              <span class="tag tag-green">LangGraph</span>
+              <span class="tag tag-cyan">Gemini 2.0</span>
+              <span class="tag tag-indigo">A2A SDK</span>
+            </div>
+            <a href="https://github.com/keshavraj77/Interview_prep_agent_a2a" target="_blank" class="proj-github-front">
+              <i class="fab fa-github"></i> keshavraj77/Interview_prep_agent_a2a
+            </a>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div>
+            <div class="flip-back-title">Interview Prep Agent (A2A Protocol)</div>
+            <div class="flip-back-desc">
+              An A2A-protocol-compliant multi-turn AI agent built to demonstrate the full spec in a
+              realistic use case. Powered by LangGraph ReAct loop + Gemini 2.0 Flash.
+              <br><br>
+              The agent understands your intent conversationally (no keyword matching — natural language
+              parsed by the LLM), then conducts live research to find relevant preparation resources.
+              Each resource is ranked on a 0–10 relevance score with a written explanation, so you know
+              <em>why</em> each one was recommended, not just that it was.
+              <br><br>
+              From the ranked resources it synthesises a personalised, day-by-day study plan tailored
+              to your timeline and target role. For long-running research tasks, the agent uses
+              A2A's async push-notification callbacks — results are delivered to a webhook
+              rather than holding the connection open.
+              <br><br>
+              Built using the official Google A2A SDK and designed to be callable by any A2A-compatible
+              orchestrator, including AgentComm.
+            </div>
+          </div>
+          <a href="https://github.com/keshavraj77/Interview_prep_agent_a2a" target="_blank" class="flip-back-link">
+            <i class="fab fa-github"></i> View on GitHub <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-container">
+      <div class="flip-card">
+        <div class="flip-front">
+          <div class="proj-header" style="background:linear-gradient(135deg,#1e3a5f,#1e40af);">
+            <div class="proj-header-icon">🎓</div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-name">Internship Registration Portal</div>
+            <div class="proj-short">Client-commissioned portal where students register for internships and instantly receive personalised QR codes.</div>
+            <div class="proj-tags">
+              <span class="tag tag-cyan">JavaScript</span>
+              <span class="tag tag-indigo">HTML/CSS</span>
+              <span class="tag tag-purple">QR API</span>
+            </div>
+            <a href="https://github.com/rajtecheduinternship/Internshipform" target="_blank" class="proj-github-front">
+              <i class="fab fa-github"></i> rajtecheduinternship/Internshipform
+            </a>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div>
+            <div class="flip-back-title">Internship Registration Portal</div>
+            <div class="flip-back-desc">
+              Built for a client to manage student internship registrations.
+              Students fill out an application form and immediately receive a personalised QR code
+              used for identity verification and on-site check-in at internship events.
+              Fully deployed and actively used in production.
+            </div>
+          </div>
+          <a href="https://github.com/rajtecheduinternship/Internshipform" target="_blank" class="flip-back-link">
+            <i class="fab fa-github"></i> View on GitHub <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-container">
+      <div class="flip-card">
+        <div class="flip-front">
+          <div class="proj-header" style="background:linear-gradient(135deg,#4a1942,#7c3aed);">
+            <div class="proj-header-icon">🏆</div>
+          </div>
+          <div class="proj-body">
+            <div class="proj-name">Quiz Competition App</div>
+            <div class="proj-short">Real-time quiz platform built for and deployed at a live client competition event with live scoring.</div>
+            <div class="proj-tags">
+              <span class="tag tag-purple">JavaScript</span>
+              <span class="tag tag-indigo">HTML/CSS</span>
+            </div>
+            <a href="https://github.com/keshavraj77/Quiz-Competition" target="_blank" class="proj-github-front">
+              <i class="fab fa-github"></i> keshavraj77/Quiz-Competition
+            </a>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div>
+            <div class="flip-back-title">Real-Time Quiz Competition App</div>
+            <div class="flip-back-desc">
+              Deployed for a live client competition event. Participants answer timed questions
+              with real-time scoring and a live leaderboard. Handled concurrent participants
+              smoothly during the event with no downtime.
+            </div>
+          </div>
+          <a href="https://github.com/keshavraj77/Quiz-Competition" target="_blank" class="flip-back-link">
+            <i class="fab fa-github"></i> View on GitHub <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ EDUCATION & ACHIEVEMENTS ══ -->
+<section id="education">
+  <div class="section-label">Background</div>
+  <h2 class="section-title">Education &amp; <span>Achievements</span></h2>
+
+  <div class="edu-ach-grid">
+    <div>
+      <h3 style="font-size:1rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">Education</h3>
+      <div class="edu-cards">
+        <div class="edu-card">
+          <div class="edu-icon">🎓</div>
+          <div>
+            <div class="edu-deg">B.Tech — Information Technology</div>
+            <div class="edu-school">Cochin University of Science and Technology (CUSAT)</div>
+            <div class="edu-score">2020 – 2024 &nbsp;·&nbsp; GPA 9.65 &nbsp;·&nbsp; 90.58% &nbsp;·&nbsp; College Topper</div>
+          </div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">📚</div>
+          <div>
+            <div class="edu-deg">12th Boards — CBSE</div>
+            <div class="edu-school">Sri Chaitanya Techno School</div>
+            <div class="edu-score">2018 – 2019 &nbsp;·&nbsp; 87.9%</div>
+          </div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">📖</div>
+          <div>
+            <div class="edu-deg">10th Boards — CBSE</div>
+            <div class="edu-school">Golden Bell Public School</div>
+            <div class="edu-score">2016 – 2017 &nbsp;·&nbsp; 95%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="font-size:1rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">Achievements</h3>
+      <div class="ach-cards">
+        <div class="ach-card">
+          <div class="ach-icon">🥇</div>
+          <div>
+            <div class="ach-title">College Topper — Information Technology</div>
+            <div class="ach-desc">Highest GPA of 9.65 across all semesters in B.Tech IT at CUSAT</div>
+          </div>
+        </div>
+        <div class="ach-card" style="border-color:rgba(168,85,247,0.4);background:rgba(168,85,247,0.07);">
+          <div class="ach-icon">🏅</div>
+          <div>
+            <div class="ach-title" style="color:#a855f7;">IBM Entrepreneur Award 2025</div>
+            <div class="ach-desc">Recognised for pioneering A2A protocol support in watsonx Orchestrate — enabling seamless cross-agent collaboration and autonomous workflows across IBM India. Oct 2025.</div>
+          </div>
+        </div>
+        <div class="ach-card">
+          <div class="ach-icon">🏆</div>
+          <div>
+            <div class="ach-title">IBM Hackathon — 1st Place</div>
+            <div class="ach-desc">Led team to first prize; represented team at multiple IBM technical events</div>
+          </div>
+        </div>
+        <div class="ach-card">
+          <div class="ach-icon">🏏</div>
+          <div>
+            <div class="ach-title">Cricket Team Captain — Championship Title</div>
+            <div class="ach-desc">Captained IT dept. cricket team to the inter-department championship</div>
+          </div>
+        </div>
+        <div class="ach-card">
+          <div class="ach-icon">🎙️</div>
+          <div>
+            <div class="ach-title">Elocution Winner & Placement Coordinator</div>
+            <div class="ach-desc">1st place Hindi elocution · Managed campus recruitment for IT dept.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="section-label">Let's Talk</div>
+  <h2 class="section-title" style="text-align:center;">Get in <span>Touch</span></h2>
+  <div class="contact-card glass-card">
+    <p class="contact-desc">
+      I'm open to new roles, collaborations, and interesting conversations about AI agents,
+      LLM systems, and distributed infrastructure. Feel free to reach out.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:keshavrajpc@gmail.com" class="contact-link">
+        <i class="fas fa-envelope"></i> keshavrajpc@gmail.com
+      </a>
+      <a href="https://github.com/keshavraj77" target="_blank" class="contact-link">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/keshav-raj-107673222/" target="_blank" class="contact-link">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+      <a href="tel:+916204025447" class="contact-link">
+        <i class="fas fa-phone"></i> +91-6204025447
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed &amp; built by <strong>Keshav Raj</strong> &nbsp;·&nbsp; 2025</p>
+</footer>
+
+<!-- ══ SCRIPTS ══ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+<script>
+// ── SKILLS DATA ──
+const skills = [
+  { name:'Python', cat:'languages' }, { name:'Go', cat:'languages' },
+  { name:'JavaScript', cat:'languages' }, { name:'TypeScript', cat:'languages' },
+  { name:'SQL', cat:'languages' }, { name:'Java', cat:'languages' },
+  { name:'C++', cat:'languages' }, { name:'PHP', cat:'languages' },
+  { name:'LangGraph', cat:'ai' }, { name:'LangChain', cat:'ai' },
+  { name:'A2A Protocol', cat:'ai' }, { name:'MCP', cat:'ai' },
+  { name:'RAG', cat:'ai' }, { name:'Prompt Engineering', cat:'ai' },
+  { name:'OpenAI GPT', cat:'ai' }, { name:'Anthropic Claude', cat:'ai' },
+  { name:'Google Gemini', cat:'ai' }, { name:'Agent Orchestration', cat:'ai' },
+  { name:'FastAPI', cat:'backend' }, { name:'Gin (Go)', cat:'backend' },
+  { name:'asyncio', cat:'backend' }, { name:'Redis Streams', cat:'backend' },
+  { name:'Kafka', cat:'backend' }, { name:'REST', cat:'backend' },
+  { name:'JSON-RPC 2.0', cat:'backend' }, { name:'SSE', cat:'backend' },
+  { name:'WebSockets', cat:'backend' }, { name:'JWT', cat:'backend' },
+  { name:'OpenAPI', cat:'backend' },
+  { name:'PostgreSQL', cat:'databases' }, { name:'MongoDB', cat:'databases' },
+  { name:'MySQL', cat:'databases' }, { name:'Redis', cat:'databases' },
+  { name:'asyncpg', cat:'databases' }, { name:'psycopg2', cat:'databases' },
+  { name:'Docker', cat:'cloud' }, { name:'Kubernetes', cat:'cloud' },
+  { name:'IBM Cloud', cat:'cloud' }, { name:'AWS', cat:'cloud' },
+  { name:'MinIO', cat:'cloud' }, { name:'GitHub Actions', cat:'cloud' },
+  { name:'Multi-stage Builds', cat:'cloud' },
+  { name:'PyQt6', cat:'frontend' }, { name:'React', cat:'frontend' },
+  { name:'Node.js', cat:'frontend' }, { name:'Flask', cat:'frontend' },
+  { name:'HTML / CSS', cat:'frontend' }, { name:'ngrok', cat:'frontend' },
+];
+
+function renderSkills(cat) {
+  const container = document.getElementById('skill-chips');
+  container.innerHTML = '';
+  const filtered = cat === 'all' ? skills : skills.filter(s => s.cat === cat);
+  filtered.forEach((s, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'skill-chip';
+    chip.textContent = s.name;
+    chip.style.animationDelay = `${i * 0.03}s`;
+    container.appendChild(chip);
+  });
+}
+renderSkills('all');
+
+document.querySelectorAll('.skill-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.skill-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderSkills(tab.dataset.cat);
+  });
+});
+
+// ── TYPEWRITER ──
+const roles = [
+  'Software Engineer @ IBM',
+  'AI Agent Platform Builder',
+  'LangGraph Orchestration Expert',
+  'A2A Protocol Implementer',
+  'Open Source Builder',
+];
+let rIdx = 0, cIdx = 0, deleting = false;
+function type() {
+  const el = document.getElementById('typewriter-text');
+  const cur = roles[rIdx];
+  if (deleting) { el.textContent = cur.substring(0, --cIdx); }
+  else { el.textContent = cur.substring(0, ++cIdx); }
+  if (!deleting && cIdx === cur.length) { setTimeout(() => deleting = true, 2200); }
+  else if (deleting && cIdx === 0) { deleting = false; rIdx = (rIdx + 1) % roles.length; }
+  setTimeout(type, deleting ? 45 : 95);
+}
+type();
+
+// ── THREE.JS NEURAL NETWORK ──
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 60;
+
+const N = 120;
+const pts = [], vel = [];
+const pPos = new Float32Array(N * 3);
+
+for (let i = 0; i < N; i++) {
+  const p = { x: (Math.random() - 0.5) * 110, y: (Math.random() - 0.5) * 70, z: (Math.random() - 0.5) * 40 };
+  pts.push(p);
+  vel.push({ x: (Math.random() - 0.5) * 0.04, y: (Math.random() - 0.5) * 0.04, z: (Math.random() - 0.5) * 0.02 });
+  pPos[i*3]=p.x; pPos[i*3+1]=p.y; pPos[i*3+2]=p.z;
+}
+
+const pGeo = new THREE.BufferGeometry();
+pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+const pMat = new THREE.PointsMaterial({ color: 0x6366f1, size: 0.55, transparent: true, opacity: 0.85 });
+scene.add(new THREE.Points(pGeo, pMat));
+
+const MAX_LINES = 600;
+const lPos = new Float32Array(MAX_LINES * 6);
+const lGeo = new THREE.BufferGeometry();
+lGeo.setAttribute('position', new THREE.BufferAttribute(lPos, 3));
+lGeo.setDrawRange(0, 0);
+const lMat = new THREE.LineSegments(lGeo, new THREE.LineBasicMaterial({
+  color: 0x6366f1, transparent: true, opacity: 0.18,
+  blending: THREE.AdditiveBlending
+}));
+scene.add(lMat);
+
+const DIST = 18;
+let mouse = { x: 0, y: 0 };
+window.addEventListener('mousemove', e => {
+  mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
+  mouse.y = -(e.clientY / window.innerHeight - 0.5) * 2;
+});
+
+function animate3D() {
+  requestAnimationFrame(animate3D);
+  const pa = pGeo.attributes.position;
+  for (let i = 0; i < N; i++) {
+    pts[i].x += vel[i].x; pts[i].y += vel[i].y; pts[i].z += vel[i].z;
+    if (Math.abs(pts[i].x) > 55) vel[i].x *= -1;
+    if (Math.abs(pts[i].y) > 35) vel[i].y *= -1;
+    if (Math.abs(pts[i].z) > 20) vel[i].z *= -1;
+    pa.setXYZ(i, pts[i].x, pts[i].y, pts[i].z);
+  }
+  pa.needsUpdate = true;
+
+  let lc = 0;
+  for (let i = 0; i < N && lc < MAX_LINES; i++) {
+    for (let j = i+1; j < N && lc < MAX_LINES; j++) {
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, dz=pts[i].z-pts[j].z;
+      if (Math.sqrt(dx*dx+dy*dy+dz*dz) < DIST) {
+        lPos[lc*6]=pts[i].x; lPos[lc*6+1]=pts[i].y; lPos[lc*6+2]=pts[i].z;
+        lPos[lc*6+3]=pts[j].x; lPos[lc*6+4]=pts[j].y; lPos[lc*6+5]=pts[j].z;
+        lc++;
+      }
+    }
+  }
+  lGeo.attributes.position.needsUpdate = true;
+  lGeo.setDrawRange(0, lc * 2);
+
+  camera.position.x += (mouse.x * 8 - camera.position.x) * 0.03;
+  camera.position.y += (mouse.y * 5 - camera.position.y) * 0.03;
+  camera.lookAt(scene.position);
+  renderer.render(scene, camera);
+}
+animate3D();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ── GSAP SCROLL ANIMATIONS ──
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray('.fade-up').forEach((el, i) => {
+  gsap.fromTo(el, { opacity:0, y:40 }, {
+    opacity:1, y:0, duration:0.7, delay: (i % 2) * 0.1,
+    scrollTrigger: { trigger: el, start: 'top 88%' }
+  });
+});
+
+gsap.fromTo('.about-card', { opacity:0, x:-40 }, {
+  opacity:1, x:0, duration:0.8,
+  scrollTrigger: { trigger:'#about', start:'top 80%' }
+});
+gsap.fromTo('.stats-grid', { opacity:0, x:40 }, {
+  opacity:1, x:0, duration:0.8,
+  scrollTrigger: { trigger:'#about', start:'top 80%' }
+});
+gsap.fromTo('.exp-header-row', { opacity:0, y:30 }, {
+  opacity:1, y:0, duration:0.6,
+  scrollTrigger: { trigger:'#experience', start:'top 85%' }
+});
+
+// ── ANIMATED COUNTERS ──
+function animateCounter(el, target, decimal, suffix) {
+  let start = 0;
+  const duration = 1800;
+  const step = timestamp => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const val = decimal ? (eased * target).toFixed(2) : Math.floor(eased * target);
+    el.textContent = suffix ? val + suffix : val;
+    if (progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const statObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.stat-number[data-target]').forEach(el => {
+        animateCounter(el, parseFloat(el.dataset.target), el.hasAttribute('data-decimal'), el.dataset.suffix);
+      });
+      entry.target.querySelectorAll('[data-target][data-suffix]').forEach(el => {
+        if (!el.classList.contains('stat-number')) return;
+      });
+      // Handle the M+ card manually
+      const mCard = entry.target.querySelector('.stat-number[data-suffix]');
+      if (mCard && !mCard.dataset.target) {
+        let n = 0; const iv = setInterval(() => {
+          n++;
+          mCard.textContent = n + 'M+';
+          if (n >= 10) clearInterval(iv);
+        }, 120);
+      }
+      statObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.stats-grid').forEach(el => statObserver.observe(el));
+
+// ── VANILLA TILT ──
+VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
+  max: 10, speed: 400, glare: false, 'max-glare': 0.1,
+});
+
+// ── ACTIVE NAV HIGHLIGHT ──
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 150) current = s.id; });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.style.color = a.getAttribute('href') === '#'+current ? 'var(--text)' : '';
+  });
+});
+</script>
+</body>
+</html>
