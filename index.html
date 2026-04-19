@@ -557,6 +557,33 @@
     .ach-icon { font-size: 1.5rem; flex-shrink: 0; }
     .ach-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
     .ach-desc { font-size: 0.78rem; color: var(--muted); }
+    
+    .highlight-award {
+      position: relative;
+      border-color: rgba(168,85,247,0.6) !important;
+      background: rgba(168,85,247,0.08) !important;
+      animation: award-pulse 2.2s ease-in-out infinite alternate, award-levitate 3s ease-in-out infinite alternate;
+    }
+    .highlight-award::after {
+      content: ''; position: absolute; top: 0; left: -100px; width: 60px; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: skewX(-20deg);
+      animation: award-shine 4s infinite;
+      pointer-events: none;
+    }
+    @keyframes award-pulse {
+      0% { box-shadow: 0 0 10px rgba(168,85,247,0.1); }
+      100% { box-shadow: 0 0 30px rgba(168,85,247,0.4); border-color: rgba(168,85,247,0.8) !important; }
+    }
+    @keyframes award-levitate {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
+    }
+    @keyframes award-shine {
+      0%, 60% { left: -100px; }
+      100% { left: 120%; }
+    }
+
 
     /* ── CONTACT ── */
     #contact { text-align: center; }
@@ -1242,11 +1269,11 @@
             <div class="ach-desc">Highest GPA of 9.65 across all semesters in B.Tech IT at CUSAT</div>
           </div>
         </div>
-        <div class="ach-card" style="border-color:rgba(168,85,247,0.4);background:rgba(168,85,247,0.07);">
-          <div class="ach-icon">🏅</div>
-          <div>
-            <div class="ach-title" style="color:#a855f7;">IBM Entrepreneur Award 2025</div>
-            <div class="ach-desc">Recognised for pioneering A2A protocol support in watsonx Orchestrate — enabling seamless cross-agent collaboration and autonomous workflows across IBM India. Oct 2025.</div>
+        <div class="ach-card highlight-award" style="overflow: hidden;">
+          <div class="ach-icon" style="position:relative; z-index:1;">🏅</div>
+          <div style="position:relative; z-index:1;">
+            <div class="ach-title" style="color:#c084fc; text-shadow: 0 0 10px rgba(168,85,247,0.5);">IBM Entrepreneur Award 2025</div>
+            <div class="ach-desc" style="color:#d8b4fe;">Recognised for pioneering A2A protocol support in watsonx Orchestrate — enabling seamless cross-agent collaboration and autonomous workflows across IBM India. Oct 2025.</div>
           </div>
         </div>
         <div class="ach-card">
