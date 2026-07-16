@@ -469,6 +469,31 @@
       color: var(--cyan); display: flex; align-items: center; gap: 6px;
     }
 
+    /* ── DEPTH (knowledge bullets) ── */
+    .depth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .depth-card {
+      padding: 24px 26px; border-radius: 18px;
+      background: var(--surface); border: 1px solid var(--border);
+      box-shadow: var(--card-glow); transition: all 0.3s;
+    }
+    .depth-card:hover { transform: translateY(-3px); box-shadow: var(--card-glow-hover); border-color: rgba(249,115,22,0.3); }
+    .depth-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .depth-head .depth-emoji { font-size: 1.2rem; }
+    .depth-head h3 { font-size: 0.95rem; font-weight: 700; }
+    .depth-card ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .depth-card li {
+      font-size: 0.82rem; color: #94a3b8; line-height: 1.6;
+      padding-left: 18px; position: relative;
+    }
+    .depth-card li::before {
+      content: '▸'; position: absolute; left: 0; color: var(--indigo); font-size: 0.8rem;
+    }
+    .depth-card li strong { color: var(--text); font-weight: 600; }
+    @media (max-width: 768px) {
+      .depth-grid { grid-template-columns: 1fr; gap: 14px; }
+      .depth-card { padding: 20px 18px; }
+    }
+
     /* ── SKILLS ── */
     .skills-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
     .skill-tab {
@@ -756,6 +781,7 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#depth">Depth</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#education">Education</a></li>
@@ -771,6 +797,7 @@
   <button class="nav-drawer-close" id="drawer-close">✕</button>
   <a href="#about" class="drawer-link">About</a>
   <a href="#experience" class="drawer-link">Experience</a>
+  <a href="#depth" class="drawer-link">Depth</a>
   <a href="#skills" class="drawer-link">Skills</a>
   <a href="#projects" class="drawer-link">Projects</a>
   <a href="#education" class="drawer-link">Education</a>
@@ -1019,6 +1046,74 @@
         retain cross-session memory without a schema rewrite.
       </div>
       <div class="work-metric"><i class="fas fa-compress-arrows-alt"></i> 6 GB → 1.5 GB container · Kafka · Cron · LTM · Multi-tenant DB</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ ENGINEERING DEPTH ══ -->
+<section id="depth">
+  <div class="section-label">Beyond the Résumé</div>
+  <h2 class="section-title">Platform Engineering <span>Depth</span></h2>
+  <p style="color:var(--muted);margin-top:-32px;margin-bottom:36px;font-size:0.9rem;">
+    Knowledge earned by working across every repo of an enterprise agent platform — gateways, runtimes, proxies, state layers, and the infrastructure between them.
+  </p>
+
+  <div class="depth-grid">
+
+    <div class="depth-card fade-up">
+      <div class="depth-head"><span class="depth-emoji">🌐</span><h3>LLM Gateways &amp; Providers</h3></div>
+      <ul>
+        <li>Worked on the platform's <strong>AI Gateway</strong> — the proxy layer every LLM call flows through, translating one unified API to each provider's dialect.</li>
+        <li>Hands-on with <strong>OpenAI GPT, Anthropic Claude, Google Gemini / Vertex, AWS Bedrock, Llama, Mistral, Groq, Cerebras, watsonx</strong> — including reasoning models.</li>
+        <li>Know each provider's <strong>edge cases and failure modes</strong> — where a request shape, streaming format, or tool-call convention breaks, and how to handle it in transformers.</li>
+        <li>Retries, fallbacks, load balancing, conditional routing, response caching, and guardrail plugins in the gateway pipeline.</li>
+      </ul>
+    </div>
+
+    <div class="depth-card fade-up">
+      <div class="depth-head"><span class="depth-emoji">🔀</span><h3>Proxies, Routing &amp; nginx</h3></div>
+      <ul>
+        <li>How <strong>reverse proxies and nginx</strong> actually work in production — routing rules, header propagation, cookie domains, OIDC callback flows.</li>
+        <li><strong>Protocol-translation gateways</strong>: A2A JSON-RPC on the outside, internal chat format on the inside — neither side knows about the other.</li>
+        <li><strong>SSE streaming through proxy layers</strong> — keeping token-by-token responses alive across hops, plus synchronous request-response fallback.</li>
+      </ul>
+    </div>
+
+    <div class="depth-card fade-up">
+      <div class="depth-head"><span class="depth-emoji">⚙️</span><h3>Stateful &amp; Stateless Runtimes</h3></div>
+      <ul>
+        <li>Know how the <strong>same chat-completion API can run stateful or stateless</strong> — and built both, in Python and in a Go runtime implementing the same patterns.</li>
+        <li>Built the <strong>state layer</strong>: a state-machine engine with step-by-step checkpointing — time-sortable checkpoint IDs, lineage/fork history, resume from any snapshot.</li>
+        <li>Ports-and-adapters architecture so business logic never touches infrastructure directly — Postgres, Redis, gateway, and billing all live behind interfaces.</li>
+      </ul>
+    </div>
+
+    <div class="depth-card fade-up">
+      <div class="depth-head"><span class="depth-emoji">🛠️</span><h3>Tool Calling &amp; Interrupts</h3></div>
+      <ul>
+        <li>Deep experience with <strong>how tool calling works</strong> across providers — and the many real-world scenarios where it fails: malformed arguments, wrong tool picked, convention mismatches between backends.</li>
+        <li>Know how <strong>interrupts and human-in-the-loop</strong> work inside an agent loop — pausing mid-execution, persisting pending interrupts, resuming exactly where the agent stopped.</li>
+        <li>Enabled users to <strong>upload files and artifacts mid-conversation</strong> — human input flows into the loop without the agent losing its agentic behavior.</li>
+      </ul>
+    </div>
+
+    <div class="depth-card fade-up">
+      <div class="depth-head"><span class="depth-emoji">🤝</span><h3>Multi-Agent Collaboration</h3></div>
+      <ul>
+        <li>Built the <strong>collaborator pattern</strong> in the Python runtime — a root agent that calls multiple collaborator agents and merges their work.</li>
+        <li>Isolated virtual conversation threads per collaborator, so agent contexts never bleed into each other regardless of graph size.</li>
+        <li>Know how <strong>agentic platforms are built end-to-end</strong> — from orchestration graph to gateway to state layer to billing.</li>
+      </ul>
+    </div>
+
+    <div class="depth-card fade-up">
+      <div class="depth-head"><span class="depth-emoji">📊</span><h3>Performance-Driven Decisions</h3></div>
+      <ul>
+        <li>Never pick an architecture on opinion — <strong>run the load tests first</strong>. JMeter campaigns from 1 to 200 virtual users, multi-turn conversation scenarios.</li>
+        <li>Example: chose the checkpoint backend only after <strong>Redis on/off comparison runs</strong> and a written Postgres-vs-Redis-vs-hybrid analysis — the workload was write-heavy, read-light, lineage-dependent, so Postgres won as source of truth.</li>
+        <li>Same discipline applied across the platform: measure, compare, document, then commit.</li>
+      </ul>
     </div>
 
   </div>
@@ -1408,12 +1503,18 @@ const skills = [
   { name:'RAG', cat:'ai' }, { name:'Prompt Engineering', cat:'ai' },
   { name:'OpenAI GPT', cat:'ai' }, { name:'Anthropic Claude', cat:'ai' },
   { name:'Google Gemini', cat:'ai' }, { name:'Agent Orchestration', cat:'ai' },
+  { name:'AWS Bedrock', cat:'ai' }, { name:'Groq / Cerebras', cat:'ai' },
+  { name:'watsonx.ai', cat:'ai' }, { name:'Tool Calling', cat:'ai' },
+  { name:'Human-in-the-Loop', cat:'ai' }, { name:'Multi-Agent Collaboration', cat:'ai' },
+  { name:'AI Gateway / LLM Proxy', cat:'ai' },
   { name:'FastAPI', cat:'backend' }, { name:'Gin (Go)', cat:'backend' },
   { name:'asyncio', cat:'backend' }, { name:'Redis Streams', cat:'backend' },
   { name:'Kafka', cat:'backend' }, { name:'REST', cat:'backend' },
   { name:'JSON-RPC 2.0', cat:'backend' }, { name:'SSE', cat:'backend' },
   { name:'WebSockets', cat:'backend' }, { name:'JWT', cat:'backend' },
   { name:'OpenAPI', cat:'backend' },
+  { name:'nginx / Reverse Proxy', cat:'backend' }, { name:'JMeter Load Testing', cat:'backend' },
+  { name:'OpenTelemetry', cat:'backend' }, { name:'Langfuse', cat:'backend' },
   { name:'PostgreSQL', cat:'databases' }, { name:'MongoDB', cat:'databases' },
   { name:'MySQL', cat:'databases' }, { name:'Redis', cat:'databases' },
   { name:'asyncpg', cat:'databases' }, { name:'psycopg2', cat:'databases' },
@@ -1499,6 +1600,8 @@ type();
     ['WebSockets',          '#969efa', 2.5],
     ['Data Isolation',      '#48dcc8', 2.5],
     ['Distributed Systems', '#48dcc8', 3],
+    ['AI Gateway · LLM Proxy', '#56c7fa', 3],
+    ['nginx · Reverse Proxy', '#969efa', 2.5],
     ['Production Debugging','#fad03c', 3],
     ['Automation Agents',   '#fad03c', 3],
     ['Go',                  '#56c7fa', 2],
